@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style type="text/css">
+      canvas { border: 1px solid black; }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="id_canvas" width="800" height="600"></canvas>
+
+    <script type="text/javascript">
+    var log = console.log.bind(console);
+    var x = 100;
+    var y = 300;
+    var canvas = document.getElementById('id_canvas');
+    var context = canvas.getContext('2d');
+    var img = new Image();
+
+    img.onload = function () {
+         context.drawImage(img, x, y);
+    }
+    img.src = 'Wall.jpg';
+
+
+
+window.addEventListener('keydown', function (event){
+      var k = event.key;
+      if (k == 'a') {
+           x -= 10;
+           context.clearRect(0, 0, canvas.width, canvas.height);
+           context.drawImage(img, x, y);
+      }
+      if (k == 'd') {
+         x += 10;
+         context.clearRect(0, 0, canvas.width, canvas.height);
+         context.drawImage(img, x, y);
+
+     }
+
+
+})
+
+
+    </script>
+  </body>
+</html>
