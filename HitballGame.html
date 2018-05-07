@@ -12,36 +12,78 @@
     <canvas id="id_canvas" width="800" height="600"></canvas>
 
     <script type="text/javascript">
+
     var log = console.log.bind(console);
-    var x = 100;
-    var y = 300;
-    var canvas = document.getElementById('id_canvas');
-    var context = canvas.getContext('2d');
-    var img = new Image();
-
-    img.onload = function () {
-         context.drawImage(img, x, y);
+    var imageFromPath = function(path) {
+         var img = new Image();
+         img.src = path;
+         return img;
     }
-    img.src = 'Wall.jpg';
+    //object
+    var Paddle = function() {
+         var image = imageFromPath('Wall.jpg');
+         var o = {
+             image: image,
+             x: 100,
+             y: 300,
+             speed: 5,
+         }
+         return o;
+    }
+    var Ball = function() {
+         var image = imageFromPath('Ball.png');
+         var o = {
+             image: image,
+             x: 100,
+             y: 100,
+             speed: 10,
+         }
+         return o;
+    }
 
-
-
+    var canvas = document.querySelector('#id_canvas');
+    var context = canvas.getContext('2d');
+    var leftkey = false;
+    var rightkey = false;
+    var paddle = Paddle();
+    var ball = Ball();
+//events
 window.addEventListener('keydown', function (event){
       var k = event.key;
       if (k == 'a') {
-           x -= 10;
-           context.clearRect(0, 0, canvas.width, canvas.height);
-           context.drawImage(img, x, y);
+           leftkey = true;
       }
       if (k == 'd') {
-         x += 10;
-         context.clearRect(0, 0, canvas.width, canvas.height);
-         context.drawImage(img, x, y);
+           rightkey = true;
 
      }
-
-
 })
+window.addEventListener('keyup', function (event){
+      var k = event.key;
+      if (k == 'a') {
+           leftkey = false;
+      }
+      if (k == 'd') {
+           rightkey = false;
+
+     }
+})
+
+//update
+setInterval(function(){
+     if (leftkey) {
+          paddle.x -= paddle.speed;
+     }
+     else if (rightkey) {
+          paddle.x += paddle.speed;
+     }
+     //draw
+     context.clearRect(0, 0, canvas.width, canvas.height);
+     context.drawImage(paddle.image, paddle.x, paddle.y);
+     context.drawImage(ball.image, ball.x, ball.y);
+}, 1000/60);
+
+
 
 
     </script>
