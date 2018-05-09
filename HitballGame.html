@@ -27,6 +27,8 @@
              x: 100,
              y: 300,
              speed: 5,
+             width: 200,
+             height: 100,
          }
          return o;
     }
@@ -37,6 +39,8 @@
              x: 100,
              y: 100,
              speed: 10,
+             width: 50,
+             height: 50,
          }
          return o;
     }
@@ -79,8 +83,8 @@ setInterval(function(){
      }
      //draw
      context.clearRect(0, 0, canvas.width, canvas.height);
-     context.drawImage(paddle.image, paddle.x, paddle.y);
-     context.drawImage(ball.image, ball.x, ball.y);
+     context.drawImage(paddle.image, paddle.x, paddle.y, paddle.width, paddle.height);
+     context.drawImage(ball.image, ball.x, ball.y, ball.width, ball.height);
 }, 1000/60);
 
 
