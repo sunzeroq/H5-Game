@@ -30,6 +30,12 @@
              width: 200,
              height: 100,
          }
+         o.moveleft = function() {
+              paddle.x -= paddle.speed;
+         }
+         o.moveright = function() {
+              paddle.x += paddle.speed;
+         }
          return o;
     }
     var Ball = function() {
@@ -45,12 +51,22 @@
          return o;
     }
 
-    var canvas = document.querySelector('#id_canvas');
-    var context = canvas.getContext('2d');
+    var GuaGame = function () {
+         var g = {};
+         var canvas = document.querySelector('#id_canvas');
+         var context = canvas.getContext('2d');
+         g.canvas = canvas;
+         g.context = context;
+         setInterval(function () {
+
+         },1000/60)
+    }
+
     var leftkey = false;
     var rightkey = false;
     var paddle = Paddle();
     var ball = Ball();
+    var game = GuaGame();
 //events
 window.addEventListener('keydown', function (event){
       var k = event.key;
@@ -76,10 +92,10 @@ window.addEventListener('keyup', function (event){
 //update
 setInterval(function(){
      if (leftkey) {
-          paddle.x -= paddle.speed;
+          paddle.moveleft();
      }
      else if (rightkey) {
-          paddle.x += paddle.speed;
+          paddle.moveright();;
      }
      //draw
      context.clearRect(0, 0, canvas.width, canvas.height);
