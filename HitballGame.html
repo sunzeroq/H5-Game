@@ -37,6 +37,16 @@
          o.moveright = function() {
               o.x += o.speed;
          }
+         o.collided = function(ball) {
+              if (ball.y + ball.height >= o.y) {
+                   
+                   if (ball.x <= o.x + o.width && ball.x + ball.width >= o.x) {
+                         return true;
+                   }
+                   return false;
+              }
+         }
+
          return o;
     }
     var Ball = function() {
@@ -45,8 +55,8 @@
              image: image,
              x: 400,
              y: 200,
-             speedx: 10,
-             speedy: 10,
+             speedx: 5,
+             speedy: 5,
              width: 50,
              height: 50,
              fired: false,
@@ -138,6 +148,10 @@ var _main = function() {
 
      game.update = function() {
           ball.move();
+          if (paddle.collided(ball)) {
+               ball.speedx *= -1;
+               ball.speedy *= -1;
+          }
     }
      game.draw = function() {
          game.drawImage(paddle);
