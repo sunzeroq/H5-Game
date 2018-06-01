@@ -21,7 +21,7 @@
     }
     //object
     var Paddle = function() {
-         var image = imageFromPath('Wall.jpg');
+         var image = imageFromPath('Image/Wall.jpg');
          var o = {
              image: image,
              x: 300,
@@ -39,7 +39,7 @@
          }
          o.collided = function(ball) {
               if (ball.y + ball.height >= o.y) {
-                   
+
                    if (ball.x <= o.x + o.width && ball.x + ball.width >= o.x) {
                          return true;
                    }
@@ -50,7 +50,7 @@
          return o;
     }
     var Ball = function() {
-         var image = imageFromPath('Ball.png');
+         var image = imageFromPath('Image/Ball.png');
          var o = {
              image: image,
              x: 400,
@@ -149,7 +149,7 @@ var _main = function() {
      game.update = function() {
           ball.move();
           if (paddle.collided(ball)) {
-               ball.speedx *= -1;
+               ball.speedx *= 1;
                ball.speedy *= -1;
           }
     }
