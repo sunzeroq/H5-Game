@@ -81,7 +81,21 @@
 
          return o;
     }
-
+    var Block = function() {
+         var image = imageFromPath('Image/Block.png');
+         var o = {
+             image: image,
+             x: 400,
+             y: 100,
+             width: 60,
+             height: 40,
+             alive: true,
+         }
+         o.kill = function() {
+              o.alive = false;
+         }
+         return o;
+    }
 
     var GuaGame = function () {
          var g = {
@@ -135,7 +149,7 @@ var _main = function() {
      var paddle = Paddle();
      var ball = Ball();
      var game = GuaGame();
-
+     var block = Block();
      game.registerAction('a', function(){
          paddle.moveleft();
     });
@@ -156,6 +170,11 @@ var _main = function() {
      game.draw = function() {
          game.drawImage(paddle);
          game.drawImage(ball);
+         if (block.alive) {
+              game.drawImage(block);
+
+         }
+
     }
 
 }
