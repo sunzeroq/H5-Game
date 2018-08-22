@@ -25,7 +25,7 @@
          var o = {
              image: image,
              x: 300,
-             y: 300,
+             y: 400,
              speed: 5,
              width: 200,
              height: 100,
@@ -94,6 +94,15 @@
          o.kill = function() {
               o.alive = false;
          }
+         o.collided = function(ball) {
+            if (ball.y <= o.y + o.height && ball.y + ball.height >= o.y) {
+
+                  if (ball.x <= o.x + o.width && ball.x + ball.width >= o.x) {
+                        return true;
+                  }
+                  return false;
+            }
+        }
          return o;
     }
 
@@ -120,7 +129,7 @@
               g.keydowns[event.key] = false;
          })
 
-         //registerAction 按下key执行callback
+         //registerAction 按下key执行callback函数，然后将callback存到g.actions，后面可以直接调用
          g.registerAction = function(key, callback){
               g.actions[key] = callback;
          }
@@ -130,7 +139,7 @@
               var actions = Object.keys(g.actions);
               for (var i = 0; i < actions.length; i++) {
                    var key = actions[i];
-                   //按键按下调用g.actions[key]函数
+                   //按键按下调用g.actions[key]函数（也就是callback函数）
                    if (g.keydowns[key]) {
                         g.actions[key]();
                    }
@@ -166,20 +175,27 @@ var _main = function() {
                ball.speedx *= 1;
                ball.speedy *= -1;
           }
+
+          if (block.collided(ball)) {
+               ball.speedx *= 1;
+               ball.speedy *= -1;
+               block.kill();
+          }
     }
      game.draw = function() {
          game.drawImage(paddle);
          game.drawImage(ball);
+
          if (block.alive) {
               game.drawImage(block);
-
          }
+
 
     }
 
 }
 
-_main();
+     _main();
 
 
 
