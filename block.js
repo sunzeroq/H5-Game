@@ -8,9 +8,13 @@ var Block = function(position) {
          width: 60,
          height: 40,
          alive: true,
+         hp: p[2] || 1,
      }
      o.kill = function() {
-         o.alive = false;
+          o.hp--;
+          if (o.hp == 0) {
+               o.alive = false;
+          }
      }
      o.collided = function(ball) {
         if (ball.y <= o.y + o.height && ball.y + ball.height >= o.y) {

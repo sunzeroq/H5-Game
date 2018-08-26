@@ -17,13 +17,14 @@
 
   <body>
     <canvas id="id_canvas" width="800" height="600"></canvas>
-
+    <hr>
+    <input type="range" id="fpsRange" value="1">
     <script type="text/javascript">
 
-var loadLevel = function (n) {
+var loadLevel = function(n) {
      var n = n - 1;
-     var blocks = [];
      var level = levels[n];
+     var blocks = [];
      for (var i = 0; i < level.length; i++) {
           var p = level[i];
           var b = Block(p);
@@ -31,13 +32,32 @@ var loadLevel = function (n) {
      }
      return blocks
 }
+var blocks = [];
+var DebugMode = function(enable) {
+     if (!enable) {
+          return;
+     }
+     window.addEventListener('keydown', function(event) {
+         var k = event.key;
+         if (k == 'p') {
+              window.paused = !window.paused;
+         }else if ('12345'.includes(k)) {
+              blocks = loadLevel(Number(k));
+         }
+   })
+   document.querySelector('#fpsRange').addEventListener('input', function(event) {
+        var input = event.target;
+        window.fps = Number(input.value + 1);
+   })
+}
 
 var _main = function() {
+     DebugMode(true);
      var paddle = Paddle();
      var ball = Ball();
      var game = GuaGame(50);
-     var pasued = false;
-     var blocks = loadLevel(1);
+     var paused = false;
+     blocks = loadLevel(2);
 
      game.registerAction('a', function(){
          paddle.moveleft();
@@ -48,21 +68,16 @@ var _main = function() {
     game.registerAction('f', function(){
         ball.fire();
    });
-    window.addEventListener("keydown", function(event) {
-         var k = event.key;
-         if (k == 'p') {
-              pasued = !paused;
-         }else if ('12345'.includes(k)) {
-              blocks = loadLevel(Number(k));
-         }
-    })
+
+
+
 
      game.update = function() {
-          if (pasued) {
+
+          if (window.paused) {
                return;
           }
           ball.move();
-
           //相撞判断
           if (paddle.collided(ball)) {
                ball.speedx *= 1;

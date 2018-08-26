@@ -26,8 +26,9 @@ var GuaGame = function (fps) {
          g.actions[key] = callback;
      }
      //循环调用，提升帧率
-     setInterval(function () {
-         //events
+     window.fps = 10;
+     var watchdog = function() {
+          //events
          var actions = Object.keys(g.actions);
          for (var i = 0; i < actions.length; i++) {
               var key = actions[i];
@@ -41,7 +42,15 @@ var GuaGame = function (fps) {
          context.clearRect(0, 0, canvas.width, canvas.height);
          //drawImage
          g.draw();
-    },1000/fps)
+         setTimeout(function() {
+             watchdog();
+        },1000/window.fps)
+     }
+
+
+     setTimeout(function() {
+         watchdog();
+    },1000/window.fps)
 
      return g;
 }
