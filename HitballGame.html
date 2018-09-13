@@ -4,7 +4,7 @@
     <title></title>
 
     <style type="text/css">
-      canvas { border: 1px solid black; }
+      canvas { border: 1px solid black;  background-color: #00000059; }
     </style>
     <script src="paddle.js"></script>
     <script src="ball.js"></script>
@@ -19,100 +19,7 @@
     <canvas id="id_canvas" width="800" height="600"></canvas>
     <hr>
     <input type="range" id="fpsRange" value="1">
-    <script type="text/javascript">
-
-var loadLevel = function(n) {
-     var n = n - 1;
-     var level = levels[n];
-     var blocks = [];
-     for (var i = 0; i < level.length; i++) {
-          var p = level[i];
-          var b = Block(p);
-          blocks.push(b);
-     }
-     return blocks
-}
-var blocks = [];
-var DebugMode = function(enable) {
-     if (!enable) {
-          return;
-     }
-     window.addEventListener('keydown', function(event) {
-         var k = event.key;
-         if (k == 'p') {
-              window.paused = !window.paused;
-         }else if ('12345'.includes(k)) {
-              blocks = loadLevel(Number(k));
-         }
-   })
-   document.querySelector('#fpsRange').addEventListener('input', function(event) {
-        var input = event.target;
-        window.fps = Number(input.value + 1);
-   })
-}
-
-var _main = function() {
-     DebugMode(true);
-     var paddle = Paddle();
-     var ball = Ball();
-     var game = GuaGame(50);
-     var paused = false;
-     blocks = loadLevel(2);
-
-     game.registerAction('a', function(){
-         paddle.moveleft();
-    });
-     game.registerAction('d', function(){
-         paddle.moveright();
-    });
-    game.registerAction('f', function(){
-        ball.fire();
-   });
-
-
-
-
-     game.update = function() {
-
-          if (window.paused) {
-               return;
-          }
-          ball.move();
-          //相撞判断
-          if (paddle.collided(ball)) {
-               ball.speedx *= 1;
-               ball.speedy *= -1;
-          }
-
-          for (var i = 0; i < blocks.length; i++) {
-              var block = blocks[i];
-              if (block.collided(ball)) {
-                  ball.speedx *= 1;
-                  ball.speedy *= -1;
-                  block.kill();
-             }
-         }
-
-    }
-
-     game.draw = function() {
-         game.drawImage(paddle);
-         game.drawImage(ball);
-
-         for (var i = 0; i < blocks.length; i++) {
-              var block = blocks[i];
-              if (block.alive) {
-                  game.drawImage(block);
-              }
-         }
-
-
-
-    }
-
-}
-
-     _main();
+    <script src="main.js">
 
 
 

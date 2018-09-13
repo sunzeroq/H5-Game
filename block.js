@@ -5,8 +5,8 @@ var Block = function(position) {
          image: image,
          x: p[0],
          y: p[1],
-         width: 60,
-         height: 40,
+         width: 30,
+         height: 20,
          alive: true,
          hp: p[2] || 1,
      }

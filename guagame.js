@@ -8,6 +8,7 @@ var GuaGame = function (fps) {
      g.canvas = canvas;
      g.context = context;
 
+
      //drawImage
      g.drawImage = function(guaImage) {
          g.context.drawImage(guaImage.image, guaImage.x, guaImage.y, guaImage.width, guaImage.height);

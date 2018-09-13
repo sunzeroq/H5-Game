@@ -1,12 +1,12 @@
 var Paddle = function() {
-     var image = imageFromPath('Image/Wall.jpg');
+     var image = imageFromPath('Image/Wall.png');
      var o = {
          image: image,
          x: 300,
          y: 400,
          speed: 5,
-         width: 200,
-         height: 100,
+         width: 100,
+         height: 20,
      }
      o.recmove = function (x) {
          if (x < 0) {

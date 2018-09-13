@@ -6,8 +6,8 @@ var Ball = function() {
          y: 200,
          speedx: 5,
          speedy: 5,
-         width: 50,
-         height: 50,
+         width: 10,
+         height: 10,
          fired: false,
      }
      o.fire = function() {
